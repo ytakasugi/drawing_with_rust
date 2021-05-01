@@ -66,3 +66,130 @@ fn main() {
 
 ![basic0201_01](./plotter_developer_guide/section02/section0201/section0201_01/basic0201_01/images/2.1.png)
 
+---
+
+### Draw figure components
+
+多くの場合、チャートには軸やメッシュグリッドなどの多くのコンポーネントが必要です。`ChartContext`タイプは、これらのコンポーネントを自動的に描画することができます。
+
+---
+
+#### Mesh
+
+以下のコードは、`ChartContext::configure_mesh`を使用して、チャートにメッシュを追加する方法を示しています。
+
+```rust
+use plotters::prelude::*;
+
+fn main() {
+  let root_drawing_area = BitMapBackend::new("images/2.2.png", (600, 400))
+    .into_drawing_area();
+
+  root_drawing_area.fill(&WHITE).unwrap();
+
+  let mut ctx = ChartBuilder::on(&root_drawing_area)
+    .build_cartesian_2d(0..100, 0..100)
+    .unwrap();
+
+  ctx.configure_mesh().draw().unwrap();
+
+}
+```
+
+---
+
+#### Axes
+
+プロットに軸を追加するには、2つのステップが必要です。
+
+1. `ChartContext`の作成時に、ラベル領域のサイズを定義します。
+2. `configure_mesh`を使用して、チャート・コンポーネントを描画します。
+
+次のコードは、軸を追加する方法を示しています。
+
+```rust
+use plotters::prelude::*;
+
+fn main() {
+  let root_drawing_area = BitMapBackend::new("images/2.3.png", (600, 400))
+    .into_drawing_area();
+
+  root_drawing_area.fill(&WHITE).unwrap();
+
+  let mut ctx = ChartBuilder::on(&root_drawing_area)
+    // enables Y axis, the size is 40 px
+    .set_label_area_size(LabelAreaPosition::Left, 40)
+    // enable X axis, the size is 40 px
+    .set_label_area_size(LabelAreaPosition::Bottom, 40)
+    .build_cartesian_2d(0..100, 0..100)
+    .unwrap();
+
+  ctx.configure_mesh().draw().unwrap();
+
+}
+```
+
+---
+
+#### Title
+
+次の例は、`ChartBuilder::caption`を使用してプロットにタイトルを追加する方法を示しています。
+
+プロッタでは、フォントを表現する最も一般的な方法は、フォントフェイス名とフォントサイズのタプルを使用することです。
+
+```rust
+use plotters::prelude::*;
+
+fn main() {
+  let root_drawing_area = BitMapBackend::new("images/2.4.png", (600, 400))
+    .into_drawing_area();
+
+  root_drawing_area.fill(&WHITE).unwrap();
+
+  let mut ctx = ChartBuilder::on(&root_drawing_area)
+    .caption("Figure Sample", ("Arial", 30))
+    .set_label_area_size(LabelAreaPosition::Left, 40)
+    .set_label_area_size(LabelAreaPosition::Bottom, 40)
+    .build_cartesian_2d(0..100, 0..100)
+    .unwrap();
+
+  ctx.configure_mesh().draw().unwrap();
+
+}
+```
+
+---
+
+### Basic data Plotting
+
+このセクションでは、Plottersを使用して、さまざまなタイプのプロットを作成してみましょう。一般的に、`ChartContext::draw_series`APIは、あらゆる種類のチャートを描画する機能を提供します。以下では、このAPIを使ってさまざまな種類のプロットを描画する方法について説明します。
+
+---
+
+#### LIne series
+
+次のコードは、プロッタで線分を描く方法を示しています。
+
+```rust
+use plotters::prelude::*;
+
+fn main() {
+  let root_area = BitMapBackend::new("images/2.5.png", (600, 400))
+    .into_drawing_area();
+  root_area.fill(&WHITE).unwrap();
+
+  let mut ctx = ChartBuilder::on(&root_area)
+    .set_label_area_size(LabelAreaPosition::Left, 40)
+    .set_label_area_size(LabelAreaPosition::Bottom, 40)
+    .caption("Line Plot Demo", ("sans-serif", 40))
+    .build_cartesian_2d(-10..10, 0..100)
+    .unwrap();
+
+  ctx.configure_mesh().draw().unwrap();
+
+  ctx.draw_series(
+    LineSeries::new((-10..=10).map(|x| (x, x* x)), &GREEN)
+  ).unwrap();
+}
+```
+
