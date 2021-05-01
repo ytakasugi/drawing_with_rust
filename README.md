@@ -62,5 +62,7 @@ fn main() {
 }
 ```
 
+このコードでは、以下の図が表示されます。
 
+![basic0201_01](./plotter_developer_guide/section02/section0201/section0201_01/basic0201_01/images/2.1.png)
 
