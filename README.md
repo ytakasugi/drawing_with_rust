@@ -1,5 +1,11 @@
 # [Plotters Developer Guide](https://plotters-rs.github.io/book/)
 
+- Add dependency to `Cargo.toml`
+
+  ```cmd
+  cargo add plotters
+  ```
+
 ---
 
 ## Basic plotting
