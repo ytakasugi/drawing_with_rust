@@ -7,6 +7,7 @@ fn main() {
     root_area.fill(&WHITE).unwrap();
 
     let mut ctx = ChartBuilder::on(&root_area)
+                    // グラフのラベルを設定
                     .set_label_area_size(LabelAreaPosition::Left, 40)
                     .set_label_area_size(LabelAreaPosition::Bottom, 40)
                     .caption("Line Plot Demo", ("sans-serif", 40))

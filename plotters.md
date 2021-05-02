@@ -447,6 +447,24 @@ plotters = { git = "https://github.com/38/plotters.git", default_features = fals
 
 ---
 
+### plotters::drawing::IntoDrawingArea
+
+- Description
+
+  根幹の描画領域に変換可能なタイプ
+
+- Required methods
+
+  - `into_drawing_area`
+
+    ```rust
+    fn into_drawing_area(self) -> DrawingArea<Self, Shift>
+    ```
+
+    タイプをルートの描画領域に変換
+
+---
+
 ### plotters::prelude::ChartBuilder
 
 - Description
@@ -469,6 +487,38 @@ plotters = { git = "https://github.com/38/plotters.git", default_features = fals
     - x_spec: X軸の仕様
     - y_spec: Y軸の仕様
     - Retrurn: チャートコンテキスト
+    
+  - plotters::prelude::ChartBuilder::set_label_area_size
+  
+    ラベルエリアサイズの設定
+  
+    - `caption`: グラフのキャプション
+    - `size`: ラベルエリアサイズの大きさ
+  
+  - `plotters::char::ChartBuilder::caption`
+  
+    チャートのキャプションを設定する
+  
+    - `caption`: グラフのキャプション
+    - `style`: テキストのスタイル
+    - Note: キャプションが設定されている場合、マージンオプションは無視されます。
+
+---
+
+### plotters::prelude::LavelAreaPosition
+
+- Description
+
+  ```rust
+  pub enum LabelAreaPosition {
+      Top,
+      Bottom,
+      Left,
+      Right,
+  }
+  ```
+
+  ラベル領域の位置を指定するために使用される列挙体です。これは、API `ChartBuilder::set_label_area_size`(struct ChartBuilder.html#method.set_label_area_size)を使用してラベル領域のサイズを構成するときに使用されます。
 
 ---
 
@@ -486,6 +536,24 @@ plotters = { git = "https://github.com/38/plotters.git", default_features = fals
   - `plotters::chart::Chartcontext::draw_series`
 
     データ系列を描画します。Plottersのデータ系列は、要素のイテレータとして抽象化されています。
+    
+  - `plotters::chart::Chartcontext::configure_mesh`
+  
+    メッシュ構成オブジェクトを初期化し、関数`MeshStyle::draw`を呼び出すことで、メッシュの描画が確定します。
+
+---
+
+### `plotters::chart::MeshStyle`
+
+- Description
+
+  任意のチャートのメッシュの構成を追跡するために使用される構造体です。
+
+- Implementation
+
+  - `plotters::chart::MeshStyle::draw`
+
+    設定したメッシュをターゲットプロットに描画
 
 ---
 
