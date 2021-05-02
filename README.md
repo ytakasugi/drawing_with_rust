@@ -233,3 +233,5 @@ const DATA2: [(i32, i32); 30] = [(1, 22), (0, 22), (1, 20), (2, 24), (4, 26), (6
 ```
 
 このコードでは、以下の図が表示されます。
+
+![basic0203_02](./plotter_developer_guide/section02/section0203/section0203_02/basic0203_02/images/2.6.png)
